@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import "../index.css"
 import Spinner from "react-bootstrap/Spinner"
-
+import Card from "react-bootstrap/Card"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 // Models for the data we get from api
 interface Post {
     id: number;
@@ -88,30 +90,35 @@ useEffect(() => {
             </Spinner>
             ) : (
                 //Show each post
-                posts.map((post) => (
-                    <article key={post.id}>
-                        {/* image */}
-                        {post.imageUrl && (
-                            <img src={post.imageUrl} alt={post.title.rendered} />
-                        )}
-                        <div className="info">
-                            {/* Date, only date no time*/}
-                            <p>{post.date.slice(0, 10)}</p>
-                        <h4>
-                            {/* Author */}
-                            Av {post._embedded?.author?.[0]?.name}
-                        </h4>
-                        </div>
-                        <div className="post-card">
-                            {/* Title */}
-                        <h2>{post.title.rendered}</h2>
-                        {/* Displays formatted WP text */}
-                        <p 
-                        dangerouslySetInnerHTML={{ __html: post.content.rendered}}
-                      />
-                      </div>
-                    </article>
-                ))
+         <Row className="g-4"> 
+             {posts.map((post) => (
+    <Col key={post.id} xs={12} md={6} lg={4}>
+      <Card className="h-100">
+        {post.imageUrl && (
+          <Card.Img variant="top" src={post.imageUrl} alt={post.title.rendered} />
+        )}
+
+        <Card.Body>
+            <div className="meta-row ">
+         {/* Date and author*/}
+              <span>{post.date.slice(0, 10)}</span>
+              <span className="">
+                 Av {post._embedded?.author?.[0]?.name} 
+              </span>
+
+         </div>
+
+
+          <Card.Title>{post.title.rendered}</Card.Title>
+          <Card.Text
+            dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+          />
+        </Card.Body>
+      </Card>
+    </Col>
+  ))}
+</Row>
+
             )
         }
        

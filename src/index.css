@@ -1,9 +1,12 @@
 .post-list {
-  color: white;
+margin: 3%;
 }
-.post-card {
-}
-.info {
+.meta-row{
+  display: flex;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: black;
+  margin-bottom: 6px;
 }
 .footer{
   height: 100%;
