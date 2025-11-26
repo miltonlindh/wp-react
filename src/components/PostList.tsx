@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react"
 import "../index.css"
+import { Link } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import Spinner from "react-bootstrap/Spinner"
 import Card from "react-bootstrap/Card"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+
 // Models for the data we get from api
-interface Post {
+export interface Post {
     id: number;
     date: string;
+    slug: string;
+    categories: number[];
     title: {
       rendered: string;
       };
@@ -24,6 +29,7 @@ interface Post {
 
     _embedded?: {
         author?: { id: number; name: string} [];
+
     }
 
 }
@@ -39,6 +45,10 @@ interface Media {
 // Fetches posts from wp and shows them, and stores them
 export default function PostList() {
         const [posts, setPosts ] = useState<Post[]>([]);
+        const [loading, setLoading] = useState(true);
+        const [searchParams] = useSearchParams();
+        const activeCategory = searchParams.get("category");
+
 
 // Runs once when the page load
 useEffect(() => {
@@ -71,7 +81,8 @@ useEffect(() => {
         )
 // Save posts so we can show them
         setPosts(postsWithImages);
-        
+        setLoading(false);
+
     }
 
 // Start loading
@@ -79,49 +90,59 @@ useEffect(() => {
 
     }, []);
 
-    
+    const visiblePosts = activeCategory
+  ? posts.filter((post) =>
+      post.categories.includes(Number(activeCategory))
+    )
+  : posts;
+
 // Shows loading text 
         return (                        
-          <div className="post-list">
-            {posts.length === 0 ? (
-//Bootstrap spinner show when the posts loads
-            <Spinner animation="border" role="status">
-             <span className="visually-hidden">Laddar...</span>
-            </Spinner>
-            ) : (
-                //Show each post
-         <Row className="g-4"> 
-             {posts.map((post) => (
-    <Col key={post.id} xs={12} md={6} lg={4}>
-      <Card className="h-100">
-        {post.imageUrl && (
-          <Card.Img variant="top" src={post.imageUrl} alt={post.title.rendered} />
-        )}
+  <div className="post-list">
+    {loading ? (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Laddar...</span>
+      </Spinner>
+    ) : visiblePosts.length === 0 ? (
+      <p>Inga inlägg hittades.</p>
+    ) : (
+      <Row className="g-4">
+        {visiblePosts.map((post) => (
+          <Col key={post.id} xs={12} md={6} lg={4}>
+            <Card className="h-100">
+                {/* Image */}
+              {post.imageUrl && (
+                <Card.Img
+                  variant="top"
+                  src={post.imageUrl}
+                  alt={post.title.rendered}
+                />
+              )}
 
-        <Card.Body>
-            <div className="meta-row ">
-         {/* Date and author*/}
-              <span>{post.date.slice(0, 10)}</span>
-              <span className="">
-                 Av {post._embedded?.author?.[0]?.name} 
-              </span>
+              <Card.Body>
+                <div className="meta-row">
+                  {/* Date and author */}
+                  <span>{post.date.slice(0, 10)}</span>
+                  <span> Av {post._embedded?.author?.[0]?.name}</span>
+                </div>
 
-         </div>
+                {/* title */}
+                <Card.Title>
+                  <Link to={post.slug}>{post.title.rendered}</Link>
+                </Card.Title>
 
+                <Card.Text
+                  dangerouslySetInnerHTML={{
+                    __html: post.excerpt.rendered,
+                  }}
+                />
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    )}
+  </div>
+);
 
-          <Card.Title>{post.title.rendered}</Card.Title>
-          <Card.Text
-            dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-          />
-        </Card.Body>
-      </Card>
-    </Col>
-  ))}
-</Row>
-
-            )
-        }
-       
-           </div>
-    );
 };
