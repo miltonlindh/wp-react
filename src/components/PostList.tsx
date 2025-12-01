@@ -39,7 +39,26 @@ interface Media {
     description: { rendered: string };
     source_url: string;
 }
+// Fallback if excerpt is missing
+function getPreviewText(post: Post): string {
+  const hasExcerpt =
+    post.excerpt?.rendered &&
+    post.excerpt.rendered.trim() !== "" &&
+    post.excerpt.rendered.trim() !== "<p></p>";
 
+  const sourceHtml = hasExcerpt
+    ? post.excerpt.rendered
+    : post.content?.rendered || "";
+
+  const textOnly = sourceHtml.replace(/<[^>]+>/g, "").trim();
+  // Change length of excerpt
+  const maxLength = 150;
+
+  if (textOnly.length <= maxLength) {
+    return textOnly;
+  }
+  return textOnly.slice(0, maxLength) + "...";
+}
 
 
 // Fetches posts from wp and shows them, and stores them
@@ -108,6 +127,7 @@ useEffect(() => {
     ) : (
       <Row className="g-4">
         {visiblePosts.map((post) => (
+     
           <Col key={post.id} xs={12} md={6} lg={4}>
             <Card className="h-100">
                 {/* Image */}
@@ -131,11 +151,8 @@ useEffect(() => {
                   <Link to={post.slug}>{post.title.rendered}</Link>
                 </Card.Title>
 
-                <Card.Text
-                  dangerouslySetInnerHTML={{
-                    __html: post.excerpt.rendered,
-                  }}
-                />
+               <Card.Text>{getPreviewText(post)}</Card.Text>
+
               </Card.Body>
             </Card>
           </Col>

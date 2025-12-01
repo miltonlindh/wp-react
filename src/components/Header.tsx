@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import { fetchCategories } from "../services/Categories";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"*/
 import MainMenu from "./MainMenu";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+//import NavDropdown from 'react-bootstrap/NavDropdown';
 
-
+/*
 interface Category {
     id: number;
     name: string;
 }
-
+*/
 
 export function Header() {
-    // Hook for navigation
+   /* // Hook for navigation
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState<Category[]>([]);
@@ -29,7 +29,7 @@ async function loadCats() {
 }
 loadCats();
     }, []);
- 
+ */
     return (
     <>
     {/* Bootstrap dropdown navbar */}
@@ -42,6 +42,7 @@ loadCats();
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {/* Dropdown menu with categories */}
+            {/**
             <NavDropdown title="Kategorier" id="basic-nav-dropdown">
                 <Nav>
                    {categories.map((cat) => (
@@ -55,6 +56,8 @@ loadCats();
                 </Nav>
            
             </NavDropdown>
+            */}
+
            <MainMenu />
           </Nav>
         </Navbar.Collapse>

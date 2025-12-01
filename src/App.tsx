@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import PostTemplate from "./components/PostTemplate"
 import { Header } from "../src/components/Header"
+import CategoryFilter from "./components/CategoryFilter"
 import { Footer } from "../src/components/Footer"
 import PostList  from "../src/components/PostList"
 import PageView from "./components/PageView";
@@ -10,13 +11,14 @@ function App() {
     < div className="d-flex flex-column min-vh-100 bg-dark">
    
       <Header />
-     <Routes>
+      <CategoryFilter />
 
+     <Routes>
           <Route  path="/" element={<PostList />} />
           <Route path="/:slug" element={<PostTemplate />}/>
           <Route path="/page/:slug" element={<PageView />} />
-          
      </Routes>
+
       < Footer />
     </div>
   )
