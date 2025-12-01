@@ -3,6 +3,7 @@ import PostTemplate from "./components/PostTemplate"
 import { Header } from "../src/components/Header"
 import { Footer } from "../src/components/Footer"
 import PostList  from "../src/components/PostList"
+import PageView from "./components/PageView";
 function App() {
 
   return (
@@ -10,10 +11,11 @@ function App() {
    
       <Header />
      <Routes>
-      
-    <Route  path="/" element={<PostList />} />
-    <Route path="/:slug" element={<PostTemplate />}/>
 
+          <Route  path="/" element={<PostList />} />
+          <Route path="/:slug" element={<PostTemplate />}/>
+          <Route path="/page/:slug" element={<PageView />} />
+          
      </Routes>
       < Footer />
     </div>

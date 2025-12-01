@@ -25,3 +25,15 @@ margin: 3%;
 .single-post-container{
   padding:40px;
 }
+.wp-page {
+  color: #f8f9fa; /* ljus text, typ Bootstrap text-light */
+  padding: 2rem 1rem;
+}
+
+.wp-page h1 {
+  margin-bottom: 1rem;
+}
+
+.wp-page a {
+  color: #0d6efd; /* eller vad du vill för länkar */
+}

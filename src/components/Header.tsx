@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchCategories } from "../services/Categories";
 import { useNavigate } from "react-router-dom"
-
+import MainMenu from "./MainMenu";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -55,6 +55,7 @@ loadCats();
                 </Nav>
            
             </NavDropdown>
+           <MainMenu />
           </Nav>
         </Navbar.Collapse>
       </Container>
