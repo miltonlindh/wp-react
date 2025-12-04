@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import "../index.css"
 import { Link } from "react-router-dom"
 import { useSearchParams } from "react-router-dom"
+import CategoryFilter from "../components/CategoryFilter"
 import Spinner from "react-bootstrap/Spinner"
 import Card from "react-bootstrap/Card"
 import Row from "react-bootstrap/Row"
@@ -116,7 +117,10 @@ useEffect(() => {
   : posts;
 
 // Shows loading text 
-        return (                        
+        return (               
+          <>
+                <CategoryFilter />
+         
   <div className="post-list">
     {loading ? (
       <Spinner animation="border" role="status">
@@ -160,6 +164,8 @@ useEffect(() => {
       </Row>
     )}
   </div>
+        </>
+
 );
 
 };
