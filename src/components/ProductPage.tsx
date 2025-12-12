@@ -90,69 +90,74 @@ export default function ProductsPage() {
   }
 
   return (
-    <Container className="py-4">
-      {/* Page title + sort buttons */}
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
-        <h1 className="mb-0 text-light">Produkter</h1>
+    <Container className="products-page py-4">
+       <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+         <h1 className="mb-0">Produkter</h1>
+
 
         {/* Filters */}
-        <ButtonGroup size="sm">
-          <Button
-            variant={sort === "" ? "primary" : "outline-secondary"}
-            onClick={() => setSort("")}
-          >
-            Ingen sortering
-          </Button>
-          <Button
-            variant={sort === "pris_asc" ? "primary" : "outline-secondary"}
-            onClick={() => setSort("pris_asc")}
-          >
-            Pris: lägst först
-          </Button>
-          <Button
-            variant={sort === "pris_desc" ? "primary" : "outline-secondary"}
-            onClick={() => setSort("pris_desc")}
-          >
-            Pris: högst först
-          </Button>
-        </ButtonGroup>
+       <ButtonGroup size="sm">
+  <Button
+    className={`sort-btn ${sort === "" ? "sort-btn--active" : ""}`}
+    onClick={() => setSort("")}
+  >
+    Ingen sortering
+  </Button>
+  <Button
+    className={`sort-btn ${sort === "pris_asc" ? "sort-btn--active" : ""}`}
+    onClick={() => setSort("pris_asc")}
+  >
+    Pris: lägst först
+  </Button>
+  <Button
+    className={`sort-btn ${sort === "pris_desc" ? "sort-btn--active" : ""}`}
+    onClick={() => setSort("pris_desc")}
+  >
+    Pris: högst först
+  </Button>
+</ButtonGroup>
+
       </div>
 
       {/* Filters */}
       <Row className="mb-3 g-2">
         <Col xs={12} md={6}>
-          <Form.Select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-          >
-            <option value="">Alla klädestyper</option>
-            {allTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </Form.Select>
+        <Form.Select
+  className="product-filter-select"
+  value={selectedType}
+  onChange={(e) => setSelectedType(e.target.value)}
+>
+  <option value="">Alla klädestyper</option>
+  {allTypes.map((type) => (
+    <option key={type} value={type}>
+      {type}
+    </option>
+  ))}
+</Form.Select>
+
         </Col>
 
         <Col xs={12} md={6}>
-          <Form.Select
-            value={selectedSize}
-            onChange={(e) => setSelectedSize(e.target.value)}
-          >
-            <option value="">Alla storlekar</option>
-            {allSizes.map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </Form.Select>
+       <Form.Select
+  className="product-filter-select"
+  value={selectedSize}
+  onChange={(e) => setSelectedSize(e.target.value)}
+>
+  <option value="">Alla storlekar</option>
+  {allSizes.map((size) => (
+    <option key={size} value={size}>
+      {size}
+    </option>
+  ))}
+</Form.Select>
+
         </Col>
       </Row>
      {/* Product list */}
       <Row className="g-4">
         {visibleProducts.map((p) => (
           <Col key={p.id} xs={12} md={6} lg={4}>
-            <Card className="h-100">
+            <Card className="h-100 product-card">
               {p.image && (
                 <Card.Img variant="top" src={p.image} alt={p.title} />
               )}
@@ -186,11 +191,12 @@ export default function ProductsPage() {
           </Col>
         ))}
           {/* If no results */}
-        {visibleProducts.length === 0 && (
-          <p className="text-light mt-3">
-            Inga produkter matchar filtren.
-          </p>
-        )}
+      {visibleProducts.length === 0 && (
+  <p className="no-products-message mt-3">
+    Inga produkter matchar filtren.
+  </p>
+)}
+
       </Row>
     </Container>
   );

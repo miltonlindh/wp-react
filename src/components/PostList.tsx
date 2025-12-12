@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import "../index.css"
 import { Link } from "react-router-dom"
 import { useSearchParams } from "react-router-dom"
 import CategoryFilter from "../components/CategoryFilter"

@@ -1,39 +1,96 @@
-
-.post-list {
-margin: 3%;
-}
-.meta-row{
-  display: flex;
-  gap: 8px;
-  font-size: 0.95rem;
-  color: black;
-  margin-bottom: 6px;
-}
-.footer{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-.post-content img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-.single-post-container{
-  padding:40px;
-}
-.wp-page {
-  color: #f8f9fa; /* ljus text, typ Bootstrap text-light */
-  padding: 2rem 1rem;
+:root {
+  --bg-body: #020617;
+  --bg-elevated: #0b1220;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #f97316; /* orange */
+  --accent-soft: rgba(249, 115, 22, 0.15);
+  --radius-lg: 16px;
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
 }
 
-.wp-page h1 {
-  margin-bottom: 1rem;
+/* Body + bakgrund */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+  color: var(--text);
 }
 
-.wp-page a {
-  color: #0d6efd; /* eller vad du vill för länkar */
+/* Gör container lite smalare på desktop */
+.main-container {
+  max-width: 1100px;
+}
+
+/* Cards */
+.card.glow-card {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.card.glow-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.9);
+  border-color: var(--accent);
+}
+
+/* Buttons – override .btn-primary */
+.btn-primary {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  border: none;
+  color: #111827;
+  font-weight: 600;
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+  padding-block: 0.45rem;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(135deg, #fed7aa, #f97316);
+  color: #111827;
+}
+
+/* Secondary */
+.btn-outline-light {
+  border-radius: 999px;
+  border-width: 1px;
+  border-color: rgba(148, 163, 184, 0.6);
+  color: var(--text);
+}
+
+.btn-outline-light:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* Navbar */
+.navbar-dark {
+  background: linear-gradient(90deg, #020617, #0b1220);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.navbar-dark .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Små “chips” t.ex. kategori/typ */
+.badge-pill {
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Grid för kort */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.1rem;
 }

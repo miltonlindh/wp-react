@@ -8,15 +8,19 @@ import ProductsPage from "./components/ProductPage"
 function App() {
 
   return (
-    < div className="d-flex flex-column min-vh-100 bg-dark">
-   
+<div className="app-shell d-flex flex-column min-vh-100">
       <Header />
+          
+        <main className="flex-fill">
+
      <Routes>
           <Route  path="/" element={<PostList />} />
           <Route path="/:slug" element={<PostTemplate />}/>
           <Route path="/page/:slug" element={<PageView />} />
           <Route path="/page/produkter" element={<ProductsPage />} />
      </Routes>
+           </main>
+
 
       < Footer />
     </div>

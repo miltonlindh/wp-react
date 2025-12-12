@@ -33,10 +33,10 @@ loadCats();
     return (
     <>
     {/* Bootstrap dropdown navbar */}
-       <Navbar expand="lg" className="bg-body-tertiary">
+       <Navbar expand="lg" className="main-navbar">
       <Container>
         {/* Home button */}
-        <Navbar.Brand href="/app">Lia-extrude</Navbar.Brand>
+        <Navbar.Brand href="/app" className="nav-logo">Lia-extrude</Navbar.Brand>
         {/* collapsible menu on mobile */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

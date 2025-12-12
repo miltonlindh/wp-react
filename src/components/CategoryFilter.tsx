@@ -46,13 +46,12 @@ export default function CategoryFilter() {
     "Alla kategorier"
 
     return(
-        <div className="border-bottom bg-dark py-2">
+        <div className="category-filter-bar">
       <Container>
         <Dropdown>
           <Dropdown.Toggle
-            variant="secondary"
             id="category-dropdown"
-            className="w-100"
+            className="category-filter-toggle w-100"
           >
             {activeLabel}
           </Dropdown.Toggle>
